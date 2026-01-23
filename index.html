@@ -4,53 +4,65 @@
 <meta charset="UTF-8">
 <title>Մարդու նման AI Ուսման Օգնական</title>
 <style>
+/* ======== ԲՈԴԻ ======== */
 body {
-  font-family: Arial, sans-serif;
-  background: #f0f4f8;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
   margin: 0;
   padding: 0;
 }
 
 .container {
-  max-width: 700px;
+  max-width: 800px;
   margin: 50px auto;
-  background: #ffffff;
-  padding: 25px;
-  border-radius: 12px;
-  box-shadow: 0 0 20px rgba(0,0,0,0.1);
+  background: #fff;
+  border-radius: 15px;
+  padding: 30px;
+  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
 }
 
 h1 {
   text-align: center;
   color: #2c3e50;
+  margin-bottom: 5px;
 }
 
 .subtitle {
   text-align: center;
   color: #555;
-  margin-bottom: 20px;
+  margin-bottom: 25px;
+  font-size: 16px;
 }
 
 textarea {
   width: 100%;
-  height: 120px;
-  padding: 12px;
+  height: 140px;
+  padding: 15px;
   font-size: 16px;
-  border-radius: 6px;
+  border-radius: 10px;
   border: 1px solid #ccc;
   resize: none;
+  box-sizing: border-box;
+  transition: border 0.2s;
+}
+
+textarea:focus {
+  border: 2px solid #3498db;
+  outline: none;
 }
 
 button {
+  display: block;
   width: 100%;
   margin-top: 15px;
-  padding: 12px;
+  padding: 14px;
   font-size: 17px;
+  color: white;
   background: #3498db;
-  color: #fff;
   border: none;
-  border-radius: 6px;
+  border-radius: 10px;
   cursor: pointer;
+  transition: background 0.3s;
 }
 
 button:hover {
@@ -58,11 +70,40 @@ button:hover {
 }
 
 .answer-box {
-  margin-top: 20px;
-  padding: 15px;
+  margin-top: 25px;
+  padding: 20px;
   background: #eef3f7;
-  border-radius: 6px;
+  border-radius: 12px;
+  min-height: 150px;
   white-space: pre-line;
+  font-size: 16px;
+  color: #333;
+  line-height: 1.5;
+  box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
+  overflow-y: auto;
+  max-height: 500px;
+}
+
+.answer-box::-webkit-scrollbar {
+  width: 8px;
+}
+
+.answer-box::-webkit-scrollbar-thumb {
+  background-color: rgba(52, 152, 219, 0.5);
+  border-radius: 4px;
+}
+
+.message {
+  margin-bottom: 15px;
+}
+
+.message.user {
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.message.ai {
+  color: #34495e;
 }
 </style>
 </head>
@@ -70,71 +111,75 @@ button:hover {
 
 <div class="container">
   <h1>🤖 Մարդու նման AI Ուսման Օգնական</h1>
-  <p class="subtitle">
-    Գրիր ցանկացած հարց, ես կփորձեմ պատասխանել, բացատրել և օրինակ տալ
-  </p>
+  <p class="subtitle">Գրիր ցանկացած հարց, ես կփորձեմ պատասխանել և շարունակել զրույցը</p>
 
   <textarea id="question" placeholder="Գրիր քո հարցը այստեղ..."></textarea>
-  <button onclick="getAnswer()">Հարցնել</button>
+  <button onclick="sendQuestion()">Ուղարկել հարցը</button>
 
-  <div id="answer" class="answer-box">
-    Այստեղ կհայտնվի պատասխանը
-  </div>
+  <div id="answer" class="answer-box"></div>
 </div>
 
 <script>
-// Պահպանում ենք նախորդ հարցերը՝ chat history
 let chatHistory = [];
 
-function getAnswer() {
-  const questionInput = document.getElementById("question");
-  const answerBox = document.getElementById("answer");
-
-  const question = questionInput.value.trim();
-  if (!question) {
-    answerBox.innerText = "Գրիր քո հարցը, ես կփորձեմ օգնել 🙂";
-    return;
-  }
-
-  let response = "";
-
-  // Տողերը ստուգում ենք lowercase-ում
+// ====== Ստեղծում ենք AI response ======
+function generateResponse(question) {
   const q = question.toLowerCase();
 
-  // Մաթեմատիկա
+  // Base rules
   if (q.includes("տոկոս") || q.includes("%") || q.includes("հաշվել")) {
-    response = "Տոկոսը նշանակում է «հարյուրից մի մասը»։\n" +
-               "Օրինակ՝ եթե ունենք 100 և ուզում ենք գտնել 20%-ը, ստանում ենք 20։\n" +
-               "Կարող ես գրել կոնկրետ խնդիր, և միասին կլուծենք։";
+    return "Տոկոսը նշանակում է «հարյուրից մի մասը»։ Օրինակ՝ 20%-ը 100-ից հավասար է 20։ Կարող ես գրել կոնկրետ խնդիր, և միասին կլուծենք։";
   }
-  // Հիմնական մարդկային հարցերի օրինակներ
-  else if (q.includes("ինչ է") || q.includes("պատմություն") || q.includes("հայոց") || q.includes("գոյական") || q.includes("ալգորիթմ")) {
-    response = "Հիանալի հարց 😊\n" +
-               "Ահա իմ բացատրությունը.\n" +
-               "Եթե ուզում ես, կարող եմ տալ նաև օրինակ կամ հավելյալ մանրամասներ։";
+  if (q.includes("ալգորիթմ") || q.includes("ծրագիր") || q.includes("կոդ")) {
+    return "Ալգորիթմը քայլերի հերթականություն է, որով լուծվում է խնդիր։ Օրինակ՝ թեյ պատրաստելը նույնպես ալգորիթմ է։";
   }
-  // Եթե թեման չի ճանաչվում
-  else {
-    response = "Համոզված չեմ, որ ճիշտ հասկացա 🤔\n" +
-               "Կփորձե՞ս ձևակերպել այլ կերպ կամ ավելացնել օրինակ, որ ավելի հստակ լինի։";
+  if (q.includes("պատմություն") || q.includes("հայոց") || q.includes("թագավոր")) {
+    return "Պատմությունը հետաքրքիր է։ Կարևոր է հասկանալ պատճառները և հետևանքները։ Կարող եմ տալ օրինակ՝ եթե ուզես։";
+  }
+  if (q.includes("ինչ է") || q.includes("ինչպես") || q.includes("բացատրի")) {
+    return "Հիանալի հարց 😊 Ահա իմ բացատրությունը։ Կարող եմ նաև տալ օրինակ, եթե ուզես։";
   }
 
-  // Հիշում ենք հարցը և պատասխանը
-  chatHistory.push({question, response});
+  // ChatGPT-like follow-up logic
+  const lastAI = chatHistory.length > 0 ? chatHistory[chatHistory.length - 1].text : "";
+  if (lastAI && lastAI.includes("չհասկացա")) {
+    return "Փորձեմ այլ կերպ բացատրել 🙂 Գնա՞նք օրինակներով կամ մանրամասնությամբ:";
+  }
 
-  // Ցուցադրում ենք ամբողջ chat history
-  let fullChat = "";
-  chatHistory.forEach((chat, index) => {
-    fullChat += `🟢 Քո հարցը: ${chat.question}\n🤖 Պատասխան: ${chat.response}\n\n`;
+  // Fallback
+  return "Հմմ 🤔 Չհասկացա ամբողջությամբ։ Կարո՞ղ ես ձևակերպել այլ կերպ կամ գրել օրինակ։";
+}
+
+// ====== Ուղարկել հարց ======
+function sendQuestion() {
+  const questionInput = document.getElementById("question");
+  const answerBox = document.getElementById("answer");
+  const question = questionInput.value.trim();
+
+  if (!question) return;
+
+  // Add user message
+  chatHistory.push({role: 'user', text: question});
+
+  // AI response
+  const response = generateResponse(question);
+  chatHistory.push({role: 'ai', text: response});
+
+  // Render chat history
+  let chatContent = "";
+  chatHistory.forEach(msg => {
+    if (msg.role === 'user') {
+      chatContent += `<div class="message user">🟢 Քո հարցը: ${msg.text}</div>`;
+    } else {
+      chatContent += `<div class="message ai">🤖 Պատասխան: ${msg.text}</div>`;
+    }
   });
 
-  answerBox.innerText = fullChat;
-
-  // Տեքստը մաքրել input-ից
+  answerBox.innerHTML = chatContent;
+  answerBox.scrollTop = answerBox.scrollHeight; // scroll to bottom
   questionInput.value = "";
 }
 </script>
 
 </body>
 </html>
-
