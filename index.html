@@ -1,1 +1,35 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Study Assistant</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="container">
+    <h1>📘 AI Ուսման Օգնական</h1>
+    <p class="subtitle">
+      Գրիր քո հարցը և ստացիր պարզ բացատրություն
+    </p>
+
+    <select id="subject">
+      <option value="math">Մաթեմատիկա</option>
+      <option value="armenian">Հայոց լեզու</option>
+      <option value="history">Պատմություն</option>
+      <option value="informatics">Ինֆորմատիկա</option>
+    </select>
+
+    <textarea id="question" placeholder="Օրինակ՝ Ի՞նչ է տոկոսը"></textarea>
+
+    <button onclick="getAnswer()">Ստանալ բացատրություն</button>
+
+    <div id="answer" class="answer-box">
+      Այստեղ կցուցադրվի բացատրությունը
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
 
