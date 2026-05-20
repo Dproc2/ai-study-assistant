@@ -91,7 +91,7 @@ button:hover {
 
 <div class="container">
 
-    <h1>🤖 AI Օգնական</h1>
+    <h1>🤖 AI Օգնական (ChatGPT)</h1>
 
     <textarea id="question" placeholder="Գրիր քո հարցը... (Ctrl + Enter ուղարկելու համար)"></textarea>
     <button onclick="sendQuestion()">Ուղարկել</button>
@@ -101,13 +101,13 @@ button:hover {
 </div>
 
 <script>
-// 🔑 Տեղադրեք Ձեր OpenRouter API բանալին այստեղ
+// 🔑 Ձեր OpenAI API բանալին
 const API_KEY = "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"; 
 
 const chatBox = document.getElementById("chatBox");
 const questionInput = document.getElementById("question");
 
-// Enter-ով ուղարկելու համար
+// Enter-ով հարցն ուղարկելու համար
 questionInput.addEventListener("keydown", function(e) {
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
@@ -125,18 +125,18 @@ function addMessage(role, text) {
     chatBox.scrollTop = chatBox.scrollHeight;
 }
 
-// ===== API ՀԱՐՑՈՒՄ =====
+// ===== OpenAI API ՀԱՐՑՈՒՄ =====
 async function askAI(question) {
     try {
-        const res = await fetch("https://openrouter.ai/v1/chat/completions", {
+        const res = await fetch("https://api.openai.com/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + API_KEY,
                 "Content-Type": "application/json"
             },
+            referrerPolicy: "no-referrer", // Անվտանգության համար
             body: JSON.stringify({
-                // Փոխված է անվճար մոդելի, որը հաշվեկշիռ չի պահանջում
-                model: "meta-llama/llama-3.1-8b-instruct:free",
+                model: "gpt-4o-mini", 
                 messages: [
                     { role: "system", content: "Դու օգնական AI ես և պատասխանում ես հայերեն" },
                     { role: "user", content: question }
