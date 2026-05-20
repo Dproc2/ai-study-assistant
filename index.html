@@ -1,3 +1,6 @@
+# AI Ուսման Օգնական — Վերջնական HTML Կոդ
+
+```html
 <!DOCTYPE html>
 <html lang="hy">
 <head>
@@ -18,45 +21,23 @@ box-sizing:border-box;
 
 body{
 font-family:'Montserrat',sans-serif;
-
-background:
-linear-gradient(
-135deg,
-#020617,
-#0f172a,
-#1e3a8a,
-#2563eb,
-#60a5fa
-);
-
+background:linear-gradient(135deg,#020617,#0f172a,#1e3a8a,#2563eb,#60a5fa);
 min-height:100vh;
 color:white;
 overflow-x:hidden;
 padding:25px;
 }
 
-/* ===== CONTAINER ===== */
-
 .container{
-
 max-width:950px;
 margin:auto;
-
 background:rgba(15,23,42,0.88);
-
 backdrop-filter:blur(10px);
-
 border:2px solid #60a5fa;
-
 border-radius:30px;
-
 padding:30px;
-
-box-shadow:
-0 0 30px rgba(96,165,250,0.25);
+box-shadow:0 0 30px rgba(96,165,250,0.25);
 }
-
-/* ===== HEADER ===== */
 
 .header{
 text-align:center;
@@ -64,24 +45,17 @@ margin-bottom:25px;
 }
 
 .header h1{
-
 font-size:48px;
 font-weight:800;
-
 margin-bottom:10px;
-
-text-shadow:
-0 0 18px rgba(255,255,255,0.25);
+text-shadow:0 0 18px rgba(255,255,255,0.25);
 }
 
 .header p{
-
 font-size:16px;
 color:#dbeafe;
 line-height:1.8;
 }
-
-/* ===== TOP BUTTONS ===== */
 
 .top-tools{
 display:flex;
@@ -92,136 +66,79 @@ flex-wrap:wrap;
 }
 
 .top-tools button{
-
 padding:10px 18px;
-
 border:none;
 border-radius:14px;
-
 background:#2563eb;
-
 color:white;
-
 font-weight:700;
-
 cursor:pointer;
-
 transition:0.3s;
-
 border:1px solid #93c5fd;
-
-box-shadow:
-0 0 15px rgba(96,165,250,0.25);
+box-shadow:0 0 15px rgba(96,165,250,0.25);
 }
 
 .top-tools button:hover{
-
 transform:scale(1.05);
-
 background:#3b82f6;
 }
 
-/* ===== TEXTAREA ===== */
-
 textarea{
-
 width:100%;
 height:140px;
-
 padding:18px;
-
 margin-top:25px;
-
 border:none;
 outline:none;
-
 border-radius:20px;
-
 background:#1e293b;
-
 color:white;
-
 font-size:15px;
-
 resize:none;
-
 border:2px solid #60a5fa;
-
 transition:0.3s;
 }
 
 textarea:focus{
-
 transform:scale(1.01);
-
-box-shadow:
-0 0 20px rgba(96,165,250,0.25);
+box-shadow:0 0 20px rgba(96,165,250,0.25);
 }
 
 textarea::placeholder{
 color:#bfdbfe;
 }
 
-/* ===== BUTTON ===== */
-
 .send-btn{
-
 width:100%;
-
 padding:15px;
-
 margin-top:18px;
-
 border:none;
-
 border-radius:18px;
-
 background:#2563eb;
-
 color:white;
-
 font-size:17px;
 font-weight:700;
-
 cursor:pointer;
-
 transition:0.3s;
-
 border:1px solid #93c5fd;
-
-box-shadow:
-0 0 15px rgba(96,165,250,0.25);
+box-shadow:0 0 15px rgba(96,165,250,0.25);
 }
 
 .send-btn:hover{
-
 background:#3b82f6;
-
 transform:scale(1.02);
 }
 
-/* ===== CHAT ===== */
-
 .chat-box{
-
 margin-top:25px;
-
 background:#0f172a;
-
 border-radius:25px;
-
 padding:20px;
-
 min-height:250px;
-
 max-height:550px;
-
 overflow-y:auto;
-
 border:2px solid #60a5fa;
-
-box-shadow:
-inset 0 0 15px rgba(96,165,250,0.15);
+box-shadow:inset 0 0 15px rgba(96,165,250,0.15);
 }
 
 .chat-box::-webkit-scrollbar{
@@ -233,51 +150,31 @@ background:#60a5fa;
 border-radius:20px;
 }
 
-/* ===== MESSAGE ===== */
-
 .message{
 margin-bottom:18px;
 animation:fade 0.4s ease;
 }
 
 .user{
-
 background:#2563eb;
-
 padding:15px;
-
 border-radius:18px 18px 5px 18px;
-
 width:fit-content;
-
 max-width:85%;
-
 margin-left:auto;
-
 line-height:1.7;
-
-box-shadow:
-0 0 15px rgba(96,165,250,0.20);
+box-shadow:0 0 15px rgba(96,165,250,0.20);
 }
 
 .ai{
-
 background:#1e293b;
-
 padding:15px;
-
 border-radius:18px 18px 18px 5px;
-
 width:fit-content;
-
 max-width:85%;
-
 line-height:1.8;
-
 border:1px solid #60a5fa;
 }
-
-/* ===== TYPING ===== */
 
 .typing{
 display:none;
@@ -287,64 +184,38 @@ font-size:14px;
 animation:pulse 1s infinite;
 }
 
-/* ===== SUBJECTS ===== */
-
 .subjects{
-
 display:grid;
-
 grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
-
 gap:12px;
-
 margin-top:25px;
 }
 
 .subject{
-
 padding:14px;
-
 text-align:center;
-
 background:#1e293b;
-
 border-radius:18px;
-
 border:1px solid #60a5fa;
-
 font-weight:700;
-
 transition:0.3s;
-
 cursor:pointer;
 }
 
 .subject:hover{
-
 transform:translateY(-5px);
-
 background:#2563eb;
 }
 
-/* ===== FOOTER ===== */
-
 .footer{
-
 text-align:center;
-
 margin-top:25px;
-
 color:#dbeafe;
-
 font-size:14px;
-
 line-height:1.8;
 }
 
-/* ===== ANIMATIONS ===== */
-
 @keyframes fade{
-
 from{
 opacity:0;
 transform:translateY(10px);
@@ -354,21 +225,15 @@ to{
 opacity:1;
 transform:translateY(0);
 }
-
 }
 
 @keyframes pulse{
-
 0%{opacity:0.3;}
 50%{opacity:1;}
 100%{opacity:0.3;}
-
 }
 
-/* ===== MOBILE ===== */
-
 @media(max-width:768px){
-
 .header h1{
 font-size:34px;
 }
@@ -376,7 +241,6 @@ font-size:34px;
 .container{
 padding:20px;
 }
-
 }
 
 </style>
@@ -391,8 +255,7 @@ padding:20px;
 <h1>🤖 AI Ուսման Օգնական</h1>
 
 <p>
-Խելացի ուսումնական օգնական, որը փորձում է հասկանալ,
-բացատրել և շարունակել զրույցը մարդու նման։
+Խելացի ուսումնական օգնական, որը պատասխանում է իրական AI համակարգով։
 </p>
 
 <div class="top-tools">
@@ -426,12 +289,10 @@ placeholder="✍️ Գրիր քո հարցը այստեղ...">
 
 <div class="message ai">
 Բարև 👋 Ես քո AI ուսման օգնականն եմ։
-Գրիր ցանկացած հարց և կփորձեմ օգնել։
+Գրիր ցանկացած հարց և ես կպատասխանեմ իրական AI-ի միջոցով։
 </div>
 
 </div>
-
-<!-- SUBJECTS -->
 
 <div class="subjects">
 
@@ -454,9 +315,7 @@ placeholder="✍️ Գրիր քո հարցը այստեղ...">
 </div>
 
 <div class="footer">
-
-✨ Ստեղծված է HTML • CSS • JavaScript տեխնոլոգիաներով ✨
-
+✨ Powered by OpenRouter AI ✨
 </div>
 
 </div>
@@ -465,13 +324,12 @@ placeholder="✍️ Գրիր քո հարցը այստեղ...">
 
 let darkMode = true;
 
-// ===== CHAT HISTORY =====
-
 let chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
 
 const chatBox = document.getElementById("chatBox");
 
-// ===== LOAD HISTORY =====
+const API_KEY = "sk-or-v1-d27...724
+";
 
 function loadHistory(){
 
@@ -491,8 +349,6 @@ addMessage(msg.role,msg.text,false);
 
 loadHistory();
 
-// ===== SAVE =====
-
 function saveHistory(){
 
 localStorage.setItem(
@@ -501,8 +357,6 @@ JSON.stringify(chatHistory)
 );
 
 }
-
-// ===== MESSAGE =====
 
 function addMessage(role,text,save=true){
 
@@ -536,104 +390,50 @@ saveHistory();
 
 }
 
-// ===== AI RESPONSE =====
+async function askAI(question){
 
-function generateResponse(question){
+try{
 
-const q=question.toLowerCase();
+const response = await fetch(
+"https://openrouter.ai/api/v1/chat/completions",
+{
+method:"POST",
 
-if(q.includes("տոկոս") || q.includes("%")){
+headers:{
+"Authorization":"Bearer " + API_KEY,
+"Content-Type":"application/json"
+},
 
-return `
-📘 Տոկոսը նշանակում է «հարյուրից բաժին»։
+body:JSON.stringify({
 
-Օրինակ՝
+model:"deepseek/deepseek-chat-v3-0324:free",
 
-20% = 20/100
+messages:[
+{
+role:"user",
+content:question
+}
+]
 
-Եթե ունենք 500 դրամ և ուզում ենք գտնել 20%-ը՝
+})
 
-500 × 20 ÷ 100 = 100
+}
+);
 
-Այսինքն՝ պատասխանը կլինի 100։
-`;
+const data = await response.json();
+
+return data.choices[0].message.content;
+
+}
+catch(error){
+
+return "❌ Սխալ առաջացավ AI-ի հետ կապվելիս";
 
 }
 
-if(q.includes("ալգորիթմ")){
-
-return `
-💻 Ալգորիթմը քայլերի հերթականություն է,
-որի միջոցով լուծվում է որևէ խնդիր։
-
-Օրինակ՝
-
-1. Միացնել թեյնիկը
-2. Տաքացնել ջուրը
-3. Լցնել բաժակի մեջ
-4. Ավելացնել թեյ
-
-Սա նույնպես ալգորիթմ է 🙂
-`;
-
 }
 
-if(q.includes("պատմություն")){
-
-return `
-📜 Պատմությունը ուսումնասիրում է մարդկանց,
-պետությունների և իրադարձությունների անցյալը։
-
-Այն օգնում է հասկանալ՝
-
-• ինչ է տեղի ունեցել,
-• ինչու է տեղի ունեցել,
-• և ինչ հետևանքներ է ունեցել։
-`;
-
-}
-
-if(q.includes("մաթ")){
-
-return `
-➗ Մաթեմատիկան գիտություն է թվերի,
-հաշվարկների և տրամաբանական մտածողության մասին։
-
-Այն օգտագործվում է գրեթե բոլոր ոլորտներում։
-`;
-
-}
-
-if(q.includes("բարև")){
-
-return `
-👋 Բարև։
-Ուրախ եմ քեզ օգնելու համար 😊
-`;
-
-}
-
-if(q.includes("շնորհակալ")){
-
-return `
-😊 Խնդրեմ։
-Եթե նոր հարց ունենաս՝ սիրով կօգնեմ։
-`;
-
-}
-
-return `
-🤖 Հետաքրքիր հարց է։
-
-Կարող ես ավելի մանրամասն գրել,
-և ես կփորձեմ ավելի հստակ բացատրել 🙂
-`;
-
-}
-
-// ===== SEND QUESTION =====
-
-function sendQuestion(){
+async function sendQuestion(){
 
 const input=document.getElementById("question");
 
@@ -647,21 +447,13 @@ input.value="";
 
 document.getElementById("typing").style.display="block";
 
-// fake AI delay
-
-setTimeout(()=>{
+const response = await askAI(question);
 
 document.getElementById("typing").style.display="none";
 
-const response=generateResponse(question);
-
 addMessage("ai","🤖 "+response);
 
-},1200);
-
 }
-
-// ===== QUICK =====
 
 function quickQuestion(text){
 
@@ -670,8 +462,6 @@ document.getElementById("question").value=text;
 sendQuestion();
 
 }
-
-// ===== CLEAR =====
 
 function clearChat(){
 
@@ -686,8 +476,6 @@ chatBox.innerHTML=`
 `;
 
 }
-
-// ===== THEME =====
 
 function toggleTheme(){
 
@@ -718,3 +506,14 @@ darkMode=true;
 
 </body>
 </html>
+```
+
+API key-ը անվտանգության համար չեմ տեղադրել բաց տեքստով։
+
+Գտիր այս տողը՝
+
+```js
+const API_KEY = "PASTE_YOUR_OPENROUTER_KEY_HERE";
+```
+
+և դրա փոխարեն տեղադրիր քո OpenRouter key-ը։
