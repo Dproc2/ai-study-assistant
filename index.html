@@ -7,60 +7,82 @@
 <title>🤖 AI Օգնական</title>
 
 <style>
-body{
-font-family:Arial;
-background:linear-gradient(135deg,#020617,#0f172a,#1e3a8a,#2563eb,#60a5fa);
-margin:0;
-padding:20px;
-color:white;
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(135deg, #020617, #0f172a, #1e3a8a, #2563eb, #60a5fa);
+    margin: 0;
+    padding: 20px;
+    color: white;
+    min-height: 100vh;
 }
 
-.container{
-max-width:800px;
-margin:auto;
-background:rgba(0,0,0,0.4);
-padding:20px;
-border-radius:20px;
+.container {
+    max-width: 800px;
+    margin: auto;
+    background: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
 }
 
-textarea{
-width:100%;
-height:120px;
-padding:10px;
-border-radius:10px;
-border:none;
-outline:none;
-font-size:16px;
+textarea {
+    width: 100%;
+    height: 120px;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    outline: none;
+    font-size: 16px;
+    box-sizing: border-box;
+    resize: vertical;
 }
 
-button{
-width:100%;
-padding:12px;
-margin-top:10px;
-border:none;
-border-radius:10px;
-background:#2563eb;
-color:white;
-font-size:16px;
-cursor:pointer;
+button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    border: none;
+    border-radius: 10px;
+    background: #2563eb;
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background 0.2s;
 }
 
-.chat-box{
-margin-top:15px;
-background:#0f172a;
-padding:15px;
-border-radius:15px;
-min-height:200px;
+button:hover {
+    background: #1d4ed8;
 }
 
-.message{
-margin:10px 0;
-padding:10px;
-border-radius:10px;
+.chat-box {
+    margin-top: 20px;
+    background: #0f172a;
+    padding: 15px;
+    border-radius: 15px;
+    min-height: 200px;
+    max-height: 500px;
+    overflow-y: auto;
 }
 
-.user{background:#2563eb;}
-.ai{background:#1e293b;border:1px solid #60a5fa;}
+.message {
+    margin: 12px 0;
+    padding: 12px;
+    border-radius: 10px;
+    line-height: 1.5;
+    white-space: pre-wrap; /* Պահպանում է տողադարձերը */
+}
+
+.user {
+    background: #2563eb;
+    margin-left: 20px;
+}
+
+.ai {
+    background: #1e293b;
+    border: 1px solid #60a5fa;
+    margin-right: 20px;
+}
 </style>
 
 </head>
@@ -69,89 +91,88 @@ border-radius:10px;
 
 <div class="container">
 
-<h1>🤖 AI Օգնական</h1>
+    <h1>🤖 AI Օգնական</h1>
 
-<textarea id="question" placeholder="Գրիր քո հարցը..."></textarea>
-<button onclick="sendQuestion()">Ուղարկել</button>
+    <textarea id="question" placeholder="Գրիր քո հարցը... (Ctrl + Enter ուղարկելու համար)"></textarea>
+    <button onclick="sendQuestion()">Ուղարկել</button>
 
-<div id="chatBox" class="chat-box"></div>
+    <div id="chatBox" class="chat-box"></div>
 
 </div>
 
 <script>
-
-// 🔑 Քո KEY
-const API_KEY = "PASTE_YOUR_OPENROUTER_KEY";
+// 🔑 Տեղադրեք Ձեր իրական OpenRouter API բանալին այստեղ
+const API_KEY = "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"; 
 
 const chatBox = document.getElementById("chatBox");
+const questionInput = document.getElementById("question");
 
-// ===== SAFE UI =====
-function addMessage(role,text){
-
-const div = document.createElement("div");
-div.className = "message " + role;
-div.textContent = text;
-
-chatBox.appendChild(div);
-chatBox.scrollTop = chatBox.scrollHeight;
-
-}
-
-// ===== SAFE AI CALL =====
-async function askAI(question){
-
-try{
-
-const res = await fetch("https://openrouter.ai/api/v1/chat/completions",{
-method:"POST",
-headers:{
-"Authorization":"Bearer " + API_KEY,
-"Content-Type":"application/json"
-},
-body:JSON.stringify({
-model:"openai/gpt-4o-mini",
-messages:[
-{role:"system",content:"Դու օգնական AI ես և պատասխանում ես հայերեն"},
-{role:"user",content:question}
-]
-})
+// Իրադարձություն տեղադրելու դաշտում Enter սեղմելու համար
+questionInput.addEventListener("keydown", function(e) {
+    if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendQuestion();
+    }
 });
 
-if(!res.ok){
-return "❌ API Error: " + res.status;
+// ===== ՄԵՍԻՋԻ ԱՎԵԼԱՑՈՒՄ ԷՋՈՒՄ =====
+function addMessage(role, text) {
+    const div = document.createElement("div");
+    div.className = "message " + role;
+    div.textContent = text;
+
+    chatBox.appendChild(div);
+    chatBox.scrollTop = chatBox.scrollHeight; // Ավտոմատ իջեցնել էջը ներքև
 }
 
-const data = await res.json();
+// ===== API ՀԱՐՑՈՒՄ =====
+async function askAI(question) {
+    try {
+        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+            method: "POST",
+            headers: {
+                "Authorization": "Bearer " + API_KEY,
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                model: "openai/gpt-4o-mini",
+                messages: [
+                    { role: "system", content: "Դու օգնական AI ես և պատասխանում ես հայերեն" },
+                    { role: "user", content: question }
+                ]
+            })
+        });
 
-return data?.choices?.[0]?.message?.content || "❌ Պատասխան չկա";
+        if (!res.ok) {
+            return "❌ API Սխալ: " + res.status;
+        }
 
-}catch(err){
-return "❌ Network error";
+        const data = await res.json();
+        return data?.choices?.[0]?.message?.content || "❌ Պատասխան չկա";
+
+    } catch (err) {
+        return "❌ Ցանցային սխալ (Network error)";
+    }
 }
 
+// ===== ՈՒՂԱՐԿԵԼՈՒ ՖՈՒՆԿՑԻԱ =====
+async function sendQuestion() {
+    const q = questionInput.value.trim();
+    if (!q) return;
+
+    // Ավելացնում ենք օգտատիրոջ հարցը
+    addMessage("user", "👤 Դու: " + q);
+    questionInput.value = ""; // Մաքրում ենք դաշտը
+
+    // Ավելացնում ենք սպասման նշանը
+    addMessage("ai", "🤖 AI: ⌛ մտածում եմ...");
+
+    // Ստանում ենք պատասխանը
+    const answer = await askAI(q);
+
+    // Փոխարինում ենք սպասման տեքստը իրական պատասխանով
+    chatBox.lastChild.textContent = "🤖 AI: " + answer;
 }
-
-// ===== SEND =====
-async function sendQuestion(){
-
-const input = document.getElementById("question");
-const q = input.value.trim();
-
-if(!q) return;
-
-addMessage("user","🟢 "+q);
-
-input.value="";
-
-addMessage("ai","⌛ մտածում եմ...");
-
-const answer = await askAI(q);
-
-// վերջին AI message-ը փոխում ենք
-chatBox.lastChild.textContent = "🤖 " + answer;
-
-}
-
 </script>
 
 </body>
