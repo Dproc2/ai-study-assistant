@@ -70,7 +70,7 @@ button:hover {
     padding: 12px;
     border-radius: 10px;
     line-height: 1.5;
-    white-space: pre-wrap; /* Պահպանում է տողադարձերը */
+    white-space: pre-wrap;
 }
 
 .user {
@@ -101,13 +101,13 @@ button:hover {
 </div>
 
 <script>
-// 🔑 Տեղադրեք Ձեր իրական OpenRouter API բանալին այստեղ
-const API_KEY = "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"; 
+// 🔑 Տեղադրեք Ձեր OpenRouter API բանալին այստեղ
+const API_KEY = "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"; 
 
 const chatBox = document.getElementById("chatBox");
 const questionInput = document.getElementById("question");
 
-// Իրադարձություն տեղադրելու դաշտում Enter սեղմելու համար
+// Enter-ով ուղարկելու համար
 questionInput.addEventListener("keydown", function(e) {
     if (e.key === "Enter" && !e.shiftKey) {
         e.preventDefault();
@@ -115,27 +115,28 @@ questionInput.addEventListener("keydown", function(e) {
     }
 });
 
-// ===== ՄԵՍԻՋԻ ԱՎԵԼԱՑՈՒՄ ԷՋՈՒՄ =====
+// ===== ՄԵՍԻՋԻ ԱՎԵԼԱՑՈՒՄ =====
 function addMessage(role, text) {
     const div = document.createElement("div");
     div.className = "message " + role;
     div.textContent = text;
 
     chatBox.appendChild(div);
-    chatBox.scrollTop = chatBox.scrollHeight; // Ավտոմատ իջեցնել էջը ներքև
+    chatBox.scrollTop = chatBox.scrollHeight;
 }
 
 // ===== API ՀԱՐՑՈՒՄ =====
 async function askAI(question) {
     try {
-        const res = await fetch("https://openrouter.ai/api/v1/chat/completions", {
+        const res = await fetch("https://openrouter.ai/v1/chat/completions", {
             method: "POST",
             headers: {
                 "Authorization": "Bearer " + API_KEY,
                 "Content-Type": "application/json"
             },
             body: JSON.stringify({
-                model: "openai/gpt-4o-mini",
+                // Փոխված է անվճար մոդելի, որը հաշվեկշիռ չի պահանջում
+                model: "meta-llama/llama-3.1-8b-instruct:free",
                 messages: [
                     { role: "system", content: "Դու օգնական AI ես և պատասխանում ես հայերեն" },
                     { role: "user", content: question }
@@ -155,22 +156,18 @@ async function askAI(question) {
     }
 }
 
-// ===== ՈՒՂԱՐԿԵԼՈՒ ՖՈՒՆԿՑԻԱ =====
+// ===== ՈՒՂԱՐԿԵԼ =====
 async function sendQuestion() {
     const q = questionInput.value.trim();
     if (!q) return;
 
-    // Ավելացնում ենք օգտատիրոջ հարցը
     addMessage("user", "👤 Դու: " + q);
-    questionInput.value = ""; // Մաքրում ենք դաշտը
+    questionInput.value = "";
 
-    // Ավելացնում ենք սպասման նշանը
     addMessage("ai", "🤖 AI: ⌛ մտածում եմ...");
 
-    // Ստանում ենք պատասխանը
     const answer = await askAI(q);
 
-    // Փոխարինում ենք սպասման տեքստը իրական պատասխանով
     chatBox.lastChild.textContent = "🤖 AI: " + answer;
 }
 </script>
