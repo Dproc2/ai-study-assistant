@@ -2,183 +2,718 @@
 <html lang="hy">
 <head>
 <meta charset="UTF-8">
-<title>Մարդու նման AI Ուսման Օգնական</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🤖 AI Ուսման Օգնական</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700;800&display=swap" rel="stylesheet">
+
 <style>
-/* ======== ԲՈԴԻ ======== */
-body {
-  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  background: linear-gradient(135deg, #f5f7fa, #c3cfe2);
-  margin: 0;
-  padding: 0;
+
+*{
+margin:0;
+padding:0;
+box-sizing:border-box;
 }
 
-.container {
-  max-width: 800px;
-  margin: 50px auto;
-  background: #fff;
-  border-radius: 15px;
-  padding: 30px;
-  box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+body{
+font-family:'Montserrat',sans-serif;
+
+background:
+linear-gradient(
+135deg,
+#020617,
+#0f172a,
+#1e3a8a,
+#2563eb,
+#60a5fa
+);
+
+min-height:100vh;
+color:white;
+overflow-x:hidden;
+padding:25px;
 }
 
-h1 {
-  text-align: center;
-  color: #2c3e50;
-  margin-bottom: 5px;
+/* ===== CONTAINER ===== */
+
+.container{
+
+max-width:950px;
+margin:auto;
+
+background:rgba(15,23,42,0.88);
+
+backdrop-filter:blur(10px);
+
+border:2px solid #60a5fa;
+
+border-radius:30px;
+
+padding:30px;
+
+box-shadow:
+0 0 30px rgba(96,165,250,0.25);
 }
 
-.subtitle {
-  text-align: center;
-  color: #555;
-  margin-bottom: 25px;
-  font-size: 16px;
+/* ===== HEADER ===== */
+
+.header{
+text-align:center;
+margin-bottom:25px;
 }
 
-textarea {
-  width: 100%;
-  height: 140px;
-  padding: 15px;
-  font-size: 16px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  resize: none;
-  box-sizing: border-box;
-  transition: border 0.2s;
+.header h1{
+
+font-size:48px;
+font-weight:800;
+
+margin-bottom:10px;
+
+text-shadow:
+0 0 18px rgba(255,255,255,0.25);
 }
 
-textarea:focus {
-  border: 2px solid #3498db;
-  outline: none;
+.header p{
+
+font-size:16px;
+color:#dbeafe;
+line-height:1.8;
 }
 
-button {
-  display: block;
-  width: 100%;
-  margin-top: 15px;
-  padding: 14px;
-  font-size: 17px;
-  color: white;
-  background: #3498db;
-  border: none;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background 0.3s;
+/* ===== TOP BUTTONS ===== */
+
+.top-tools{
+display:flex;
+justify-content:center;
+gap:12px;
+margin-top:20px;
+flex-wrap:wrap;
 }
 
-button:hover {
-  background: #2980b9;
+.top-tools button{
+
+padding:10px 18px;
+
+border:none;
+border-radius:14px;
+
+background:#2563eb;
+
+color:white;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:0.3s;
+
+border:1px solid #93c5fd;
+
+box-shadow:
+0 0 15px rgba(96,165,250,0.25);
 }
 
-.answer-box {
-  margin-top: 25px;
-  padding: 20px;
-  background: #eef3f7;
-  border-radius: 12px;
-  min-height: 150px;
-  white-space: pre-line;
-  font-size: 16px;
-  color: #333;
-  line-height: 1.5;
-  box-shadow: inset 0 4px 10px rgba(0,0,0,0.05);
-  overflow-y: auto;
-  max-height: 500px;
+.top-tools button:hover{
+
+transform:scale(1.05);
+
+background:#3b82f6;
 }
 
-.answer-box::-webkit-scrollbar {
-  width: 8px;
+/* ===== TEXTAREA ===== */
+
+textarea{
+
+width:100%;
+height:140px;
+
+padding:18px;
+
+margin-top:25px;
+
+border:none;
+outline:none;
+
+border-radius:20px;
+
+background:#1e293b;
+
+color:white;
+
+font-size:15px;
+
+resize:none;
+
+border:2px solid #60a5fa;
+
+transition:0.3s;
 }
 
-.answer-box::-webkit-scrollbar-thumb {
-  background-color: rgba(52, 152, 219, 0.5);
-  border-radius: 4px;
+textarea:focus{
+
+transform:scale(1.01);
+
+box-shadow:
+0 0 20px rgba(96,165,250,0.25);
 }
 
-.message {
-  margin-bottom: 15px;
+textarea::placeholder{
+color:#bfdbfe;
 }
 
-.message.user {
-  font-weight: bold;
-  color: #2c3e50;
+/* ===== BUTTON ===== */
+
+.send-btn{
+
+width:100%;
+
+padding:15px;
+
+margin-top:18px;
+
+border:none;
+
+border-radius:18px;
+
+background:#2563eb;
+
+color:white;
+
+font-size:17px;
+font-weight:700;
+
+cursor:pointer;
+
+transition:0.3s;
+
+border:1px solid #93c5fd;
+
+box-shadow:
+0 0 15px rgba(96,165,250,0.25);
 }
 
-.message.ai {
-  color: #34495e;
+.send-btn:hover{
+
+background:#3b82f6;
+
+transform:scale(1.02);
 }
+
+/* ===== CHAT ===== */
+
+.chat-box{
+
+margin-top:25px;
+
+background:#0f172a;
+
+border-radius:25px;
+
+padding:20px;
+
+min-height:250px;
+
+max-height:550px;
+
+overflow-y:auto;
+
+border:2px solid #60a5fa;
+
+box-shadow:
+inset 0 0 15px rgba(96,165,250,0.15);
+}
+
+.chat-box::-webkit-scrollbar{
+width:8px;
+}
+
+.chat-box::-webkit-scrollbar-thumb{
+background:#60a5fa;
+border-radius:20px;
+}
+
+/* ===== MESSAGE ===== */
+
+.message{
+margin-bottom:18px;
+animation:fade 0.4s ease;
+}
+
+.user{
+
+background:#2563eb;
+
+padding:15px;
+
+border-radius:18px 18px 5px 18px;
+
+width:fit-content;
+
+max-width:85%;
+
+margin-left:auto;
+
+line-height:1.7;
+
+box-shadow:
+0 0 15px rgba(96,165,250,0.20);
+}
+
+.ai{
+
+background:#1e293b;
+
+padding:15px;
+
+border-radius:18px 18px 18px 5px;
+
+width:fit-content;
+
+max-width:85%;
+
+line-height:1.8;
+
+border:1px solid #60a5fa;
+}
+
+/* ===== TYPING ===== */
+
+.typing{
+display:none;
+margin-top:12px;
+color:#bfdbfe;
+font-size:14px;
+animation:pulse 1s infinite;
+}
+
+/* ===== SUBJECTS ===== */
+
+.subjects{
+
+display:grid;
+
+grid-template-columns:repeat(auto-fit,minmax(140px,1fr));
+
+gap:12px;
+
+margin-top:25px;
+}
+
+.subject{
+
+padding:14px;
+
+text-align:center;
+
+background:#1e293b;
+
+border-radius:18px;
+
+border:1px solid #60a5fa;
+
+font-weight:700;
+
+transition:0.3s;
+
+cursor:pointer;
+}
+
+.subject:hover{
+
+transform:translateY(-5px);
+
+background:#2563eb;
+}
+
+/* ===== FOOTER ===== */
+
+.footer{
+
+text-align:center;
+
+margin-top:25px;
+
+color:#dbeafe;
+
+font-size:14px;
+
+line-height:1.8;
+}
+
+/* ===== ANIMATIONS ===== */
+
+@keyframes fade{
+
+from{
+opacity:0;
+transform:translateY(10px);
+}
+
+to{
+opacity:1;
+transform:translateY(0);
+}
+
+}
+
+@keyframes pulse{
+
+0%{opacity:0.3;}
+50%{opacity:1;}
+100%{opacity:0.3;}
+
+}
+
+/* ===== MOBILE ===== */
+
+@media(max-width:768px){
+
+.header h1{
+font-size:34px;
+}
+
+.container{
+padding:20px;
+}
+
+}
+
 </style>
 </head>
+
 <body>
 
 <div class="container">
-  <h1>🤖 Մարդու նման AI Ուսման Օգնական</h1>
-  <p class="subtitle">Գրիր ցանկացած հարց, ես կփորձեմ պատասխանել և շարունակել զրույցը</p>
 
-  <textarea id="question" placeholder="Գրիր քո հարցը այստեղ..."></textarea>
-  <button onclick="sendQuestion()">Ուղարկել հարցը</button>
+<div class="header">
 
-  <div id="answer" class="answer-box"></div>
+<h1>🤖 AI Ուսման Օգնական</h1>
+
+<p>
+Խելացի ուսումնական օգնական, որը փորձում է հասկանալ,
+բացատրել և շարունակել զրույցը մարդու նման։
+</p>
+
+<div class="top-tools">
+
+<button onclick="clearChat()">
+🗑️ Մաքրել Զրույցը
+</button>
+
+<button onclick="toggleTheme()">
+🌙 Theme
+</button>
+
+</div>
+
+</div>
+
+<textarea
+id="question"
+placeholder="✍️ Գրիր քո հարցը այստեղ...">
+</textarea>
+
+<button class="send-btn" onclick="sendQuestion()">
+🚀 Ուղարկել Հարցը
+</button>
+
+<div class="typing" id="typing">
+🤖 AI-ը մտածում է...
+</div>
+
+<div class="chat-box" id="chatBox">
+
+<div class="message ai">
+Բարև 👋 Ես քո AI ուսման օգնականն եմ։
+Գրիր ցանկացած հարց և կփորձեմ օգնել։
+</div>
+
+</div>
+
+<!-- SUBJECTS -->
+
+<div class="subjects">
+
+<div class="subject" onclick="quickQuestion('Բացատրի տոկոսը')">
+📘 Տոկոս
+</div>
+
+<div class="subject" onclick="quickQuestion('Ինչ է ալգորիթմը')">
+💻 Ալգորիթմ
+</div>
+
+<div class="subject" onclick="quickQuestion('Հայոց պատմություն')">
+📜 Պատմություն
+</div>
+
+<div class="subject" onclick="quickQuestion('Բացատրի մաթեմատիկան')">
+➗ Մաթեմատիկա
+</div>
+
+</div>
+
+<div class="footer">
+
+✨ Ստեղծված է HTML • CSS • JavaScript տեխնոլոգիաներով ✨
+
+</div>
+
 </div>
 
 <script>
-let chatHistory = [];
 
-// ====== Ստեղծում ենք AI response ======
-function generateResponse(question) {
-  const q = question.toLowerCase();
+let darkMode = true;
 
-  // Base rules
-  if (q.includes("տոկոս") || q.includes("%") || q.includes("հաշվել")) {
-    return "Տոկոսը նշանակում է «հարյուրից մի մասը»։ Օրինակ՝ 20%-ը 100-ից հավասար է 20։ Կարող ես գրել կոնկրետ խնդիր, և միասին կլուծենք։";
-  }
-  if (q.includes("ալգորիթմ") || q.includes("ծրագիր") || q.includes("կոդ")) {
-    return "Ալգորիթմը քայլերի հերթականություն է, որով լուծվում է խնդիր։ Օրինակ՝ թեյ պատրաստելը նույնպես ալգորիթմ է։";
-  }
-  if (q.includes("պատմություն") || q.includes("հայոց") || q.includes("թագավոր")) {
-    return "Պատմությունը հետաքրքիր է։ Կարևոր է հասկանալ պատճառները և հետևանքները։ Կարող եմ տալ օրինակ՝ եթե ուզես։";
-  }
-  if (q.includes("ինչ է") || q.includes("ինչպես") || q.includes("բացատրի")) {
-    return "Հիանալի հարց 😊 Ահա իմ բացատրությունը։ Կարող եմ նաև տալ օրինակ, եթե ուզես։";
-  }
+// ===== CHAT HISTORY =====
 
-  // ChatGPT-like follow-up logic
-  const lastAI = chatHistory.length > 0 ? chatHistory[chatHistory.length - 1].text : "";
-  if (lastAI && lastAI.includes("չհասկացա")) {
-    return "Փորձեմ այլ կերպ բացատրել 🙂 Գնա՞նք օրինակներով կամ մանրամասնությամբ:";
-  }
+let chatHistory = JSON.parse(localStorage.getItem("chatHistory")) || [];
 
-  // Fallback
-  return "Հմմ 🤔 Չհասկացա ամբողջությամբ։ Կարո՞ղ ես ձևակերպել այլ կերպ կամ գրել օրինակ։";
+const chatBox = document.getElementById("chatBox");
+
+// ===== LOAD HISTORY =====
+
+function loadHistory(){
+
+if(chatHistory.length > 0){
+
+chatBox.innerHTML = "";
+
+chatHistory.forEach(msg=>{
+
+addMessage(msg.role,msg.text,false);
+
+});
+
 }
 
-// ====== Ուղարկել հարց ======
-function sendQuestion() {
-  const questionInput = document.getElementById("question");
-  const answerBox = document.getElementById("answer");
-  const question = questionInput.value.trim();
-
-  if (!question) return;
-
-  // Add user message
-  chatHistory.push({role: 'user', text: question});
-
-  // AI response
-  const response = generateResponse(question);
-  chatHistory.push({role: 'ai', text: response});
-
-  // Render chat history
-  let chatContent = "";
-  chatHistory.forEach(msg => {
-    if (msg.role === 'user') {
-      chatContent += `<div class="message user">🟢 Քո հարցը: ${msg.text}</div>`;
-    } else {
-      chatContent += `<div class="message ai">🤖 Պատասխան: ${msg.text}</div>`;
-    }
-  });
-
-  answerBox.innerHTML = chatContent;
-  answerBox.scrollTop = answerBox.scrollHeight; // scroll to bottom
-  questionInput.value = "";
 }
+
+loadHistory();
+
+// ===== SAVE =====
+
+function saveHistory(){
+
+localStorage.setItem(
+"chatHistory",
+JSON.stringify(chatHistory)
+);
+
+}
+
+// ===== MESSAGE =====
+
+function addMessage(role,text,save=true){
+
+const div=document.createElement("div");
+
+div.classList.add("message");
+
+if(role==="user"){
+div.classList.add("user");
+}
+else{
+div.classList.add("ai");
+}
+
+div.innerHTML=text;
+
+chatBox.appendChild(div);
+
+chatBox.scrollTop=chatBox.scrollHeight;
+
+if(save){
+
+chatHistory.push({
+role:role,
+text:text
+});
+
+saveHistory();
+
+}
+
+}
+
+// ===== AI RESPONSE =====
+
+function generateResponse(question){
+
+const q=question.toLowerCase();
+
+if(q.includes("տոկոս") || q.includes("%")){
+
+return `
+📘 Տոկոսը նշանակում է «հարյուրից բաժին»։
+
+Օրինակ՝
+
+20% = 20/100
+
+Եթե ունենք 500 դրամ և ուզում ենք գտնել 20%-ը՝
+
+500 × 20 ÷ 100 = 100
+
+Այսինքն՝ պատասխանը կլինի 100։
+`;
+
+}
+
+if(q.includes("ալգորիթմ")){
+
+return `
+💻 Ալգորիթմը քայլերի հերթականություն է,
+որի միջոցով լուծվում է որևէ խնդիր։
+
+Օրինակ՝
+
+1. Միացնել թեյնիկը
+2. Տաքացնել ջուրը
+3. Լցնել բաժակի մեջ
+4. Ավելացնել թեյ
+
+Սա նույնպես ալգորիթմ է 🙂
+`;
+
+}
+
+if(q.includes("պատմություն")){
+
+return `
+📜 Պատմությունը ուսումնասիրում է մարդկանց,
+պետությունների և իրադարձությունների անցյալը։
+
+Այն օգնում է հասկանալ՝
+
+• ինչ է տեղի ունեցել,
+• ինչու է տեղի ունեցել,
+• և ինչ հետևանքներ է ունեցել։
+`;
+
+}
+
+if(q.includes("մաթ")){
+
+return `
+➗ Մաթեմատիկան գիտություն է թվերի,
+հաշվարկների և տրամաբանական մտածողության մասին։
+
+Այն օգտագործվում է գրեթե բոլոր ոլորտներում։
+`;
+
+}
+
+if(q.includes("բարև")){
+
+return `
+👋 Բարև։
+Ուրախ եմ քեզ օգնելու համար 😊
+`;
+
+}
+
+if(q.includes("շնորհակալ")){
+
+return `
+😊 Խնդրեմ։
+Եթե նոր հարց ունենաս՝ սիրով կօգնեմ։
+`;
+
+}
+
+return `
+🤖 Հետաքրքիր հարց է։
+
+Կարող ես ավելի մանրամասն գրել,
+և ես կփորձեմ ավելի հստակ բացատրել 🙂
+`;
+
+}
+
+// ===== SEND QUESTION =====
+
+function sendQuestion(){
+
+const input=document.getElementById("question");
+
+const question=input.value.trim();
+
+if(question==="") return;
+
+addMessage("user","🟢 "+question);
+
+input.value="";
+
+document.getElementById("typing").style.display="block";
+
+// fake AI delay
+
+setTimeout(()=>{
+
+document.getElementById("typing").style.display="none";
+
+const response=generateResponse(question);
+
+addMessage("ai","🤖 "+response);
+
+},1200);
+
+}
+
+// ===== QUICK =====
+
+function quickQuestion(text){
+
+document.getElementById("question").value=text;
+
+sendQuestion();
+
+}
+
+// ===== CLEAR =====
+
+function clearChat(){
+
+chatHistory=[];
+
+localStorage.removeItem("chatHistory");
+
+chatBox.innerHTML=`
+<div class="message ai">
+🤖 Զրույցը մաքրված է։
+</div>
+`;
+
+}
+
+// ===== THEME =====
+
+function toggleTheme(){
+
+if(darkMode){
+
+document.body.style.background=
+"linear-gradient(135deg,#f8fafc,#dbeafe,#bfdbfe)";
+
+document.body.style.color="#111";
+
+darkMode=false;
+
+}
+else{
+
+document.body.style.background=
+"linear-gradient(135deg,#020617,#0f172a,#1e3a8a,#2563eb,#60a5fa)";
+
+document.body.style.color="white";
+
+darkMode=true;
+
+}
+
+}
+
 </script>
 
 </body>
