@@ -1,6 +1,86 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>🤖 AI Օգնական (Fallback System)</title>
+
+<style>
+body{
+font-family:Arial;
+background:linear-gradient(135deg,#020617,#0f172a,#1e3a8a,#2563eb,#60a5fa);
+margin:0;
+padding:20px;
+color:white;
+}
+
+.container{
+max-width:800px;
+margin:auto;
+background:rgba(0,0,0,0.4);
+padding:20px;
+border-radius:20px;
+}
+
+textarea{
+width:100%;
+height:120px;
+padding:10px;
+border-radius:10px;
+border:none;
+outline:none;
+font-size:16px;
+}
+
+button{
+width:100%;
+padding:12px;
+margin-top:10px;
+border:none;
+border-radius:10px;
+background:#2563eb;
+color:white;
+font-size:16px;
+cursor:pointer;
+}
+
+.chat-box{
+margin-top:15px;
+background:#0f172a;
+padding:15px;
+border-radius:15px;
+min-height:200px;
+}
+
+.message{
+margin:10px 0;
+padding:10px;
+border-radius:10px;
+}
+
+.user{background:#2563eb;}
+.ai{background:#1e293b;border:1px solid #60a5fa;}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h1>🤖 AI Օգնական</h1>
+
+<textarea id="question" placeholder="Գրիր քո հարցը..."></textarea>
+<button onclick="sendQuestion()">Ուղարկել</button>
+
+<div id="chatBox" class="chat-box"></div>
+
+</div>
+
 <script>
 
-const API_KEY = "PASTE_YOUR_OPENROUTER_KEY";
+// 🔑 OPENROUTER KEY
+const API_KEY = "PASTE_YOUR_OPENROUTER_KEY_HERE";
 
 const chatBox = document.getElementById("chatBox");
 
@@ -16,10 +96,9 @@ chatBox.scrollTop = chatBox.scrollHeight;
 
 }
 
-// ================= AI FALLBACK ENGINE =================
+// ================= MAIN AI WITH FALLBACK =================
 async function askAI(question){
 
-// ===== 1st MODEL =====
 const models = [
 "deepseek/deepseek-chat-v3-0324:free",
 "openai/gpt-4o-mini",
@@ -36,12 +115,12 @@ headers:{
 "Authorization":"Bearer " + API_KEY,
 "Content-Type":"application/json",
 "HTTP-Referer":"http://localhost",
-"X-Title":"AI Fallback System"
+"X-Title":"Fallback AI"
 },
 body:JSON.stringify({
 model:model,
 messages:[
-{role:"system",content:"Դու օգնական AI ես, պատասխանում ես հայերեն պարզ ձևով"},
+{role:"system",content:"Դու ուսուցողական AI ես, պատասխանում ես հայերեն պարզ"},
 {role:"user",content:question}
 ]
 })
@@ -49,42 +128,39 @@ messages:[
 
 const data = await res.json();
 
-// success check
 if(data?.choices?.length){
 return data.choices[0].message.content;
 }
 
 }catch(e){
-// try next model
 console.log("Model failed:", model);
 }
 
 }
 
-// ================= OFFLINE FALLBACK =================
-return localAI(question);
+// ================= OFFLINE AI =================
+return offlineAI(question);
 
 }
 
-// ================= SMART OFFLINE AI =================
-function localAI(q){
+// ================= SMART OFFLINE =================
+function offlineAI(q){
 
 q = q.toLowerCase();
 
-// simple math
-if(q.includes("+") || q.includes("-") || q.includes("*")){
-return "🧮 Թվում է մաթեմատիկական հարց է։ Կարող եմ օգնել հաշվարկով, գրիր ավելի հստակ։";
-}
-
-if(q.includes("ինչ է") || q.includes("what")){
-return "📘 Սա հետաքրքիր հարց է։ Սա հիմնական հասկացություն է, կարող եմ բացատրել պարզ օրինակով։";
-}
-
 if(q.includes("բարև")){
-return "👋 Բարև քեզ։ Ես fallback AI եմ, բայց դեռ կարող եմ օգնել 🙂";
+return "👋 Բարև քեզ 🙂 Ես fallback AI եմ, բայց կարող եմ օգնել։";
 }
 
-return "🤖 Հիմա AI կապը հասանելի չէ, բայց կարող եմ օգնել պարզ բացատրությամբ։ Գրիր ավելի կոնկրետ հարց։";
+if(q.includes("+") || q.includes("-") || q.includes("*")){
+return "🧮 Թվում է մաթեմատիկական հարց է, գրիր ավելի կոնկրետ։";
+}
+
+if(q.includes("ինչ է")){
+return "📘 Սա կարևոր հասկացություն է։ Կարող եմ բացատրել օրինակով։";
+}
+
+return "🤖 Հիմա AI կապը հասանելի չէ, բայց գրիր ավելի կոնկրետ հարց 🙂";
 
 }
 
@@ -107,3 +183,6 @@ addMessage("ai","🤖 "+answer);
 }
 
 </script>
+
+</body>
+</html>
